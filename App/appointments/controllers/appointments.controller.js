@@ -178,3 +178,33 @@ exports.getAppointmentDetailsByDay = async(req, res) => {
         res.status(500).send({ message: 'An error occurred while getting details.' });
     }
 };
+
+exports.getMonthlyAppointmentsByDoctor = async(req, res) => {
+    try {
+        const monthlyAppointmentTrends = await appointmentModel.getMonthlyAppointmentsByDoctor(req.params.doctorId);
+        res.status(200).send(monthlyAppointmentTrends);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'An error occurred while getting details.' });
+    }
+};
+
+exports.getDoctorUpcomingAppointments = async(req, res) => {
+    try {
+        const upcomingAppointments = await appointmentModel.getDoctorUpcomingAppointments(req.params.doctorId);
+        res.status(200).send(upcomingAppointments);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'An error occurred while getting details.' });
+    }
+};
+
+exports.getAppointmentsAndPrescriptionsByDate = async(req, res) => {
+    try {
+        const upcomingAppointments = await appointmentModel.getAppointmentsAndPrescriptionsByDate(req.params.date);
+        res.status(200).send(upcomingAppointments);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'An error occurred while getting details.' });
+    }
+};
