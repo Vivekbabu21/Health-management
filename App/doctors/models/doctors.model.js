@@ -19,9 +19,9 @@ exports.addDoctor = (data) => {
     return doctor.save();        
 };
 
-// exports.getDoctors = ()=>{
-//     return Doctor.find();
-// }
+exports.getDoctors = ()=>{
+    return Doctor.find();
+}
 
 exports.getDoctorById = (doctorId)=>{
     return Doctor.findById(doctorId);
