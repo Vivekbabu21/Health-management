@@ -169,9 +169,9 @@ exports.getMonthlyAppointmentTrends = async(req, res) => {
     }
 };
 
-exports.getAppointmentDetailsByDay = async(req, res) => {
+exports.getAppointmentDetailsDaywise = async(req, res) => {
     try {
-        const appointmentDetailsByDay = await appointmentModel.getAppointmentDetailsByDay();
+        const appointmentDetailsByDay = await appointmentModel.getAppointmentDetailsDaywise();
         res.status(200).send(appointmentDetailsByDay);
     } catch (error) {
         console.log(error);
@@ -199,9 +199,9 @@ exports.getDoctorUpcomingAppointments = async(req, res) => {
     }
 };
 
-exports.getAppointmentsAndPrescriptionsByDate = async(req, res) => {
+exports.getAppointmentsByDate = async(req, res) => {
     try {
-        const upcomingAppointments = await appointmentModel.getAppointmentsAndPrescriptionsByDate(req.params.date);
+        const upcomingAppointments = await appointmentModel.getAppointmentsByDate(req.params.date);
         res.status(200).send(upcomingAppointments);
     } catch (error) {
         console.log(error);

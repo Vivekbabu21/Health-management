@@ -10,10 +10,10 @@ router.post('/complete', appointmentController.completeAppointment);
 router.post('/cancel', appointmentController.cancelAppointment);
 router.post('/reschedule', appointmentController.rescheduleAppointment);
 router.get('/monthlyDetails', appointmentController.getMonthlyAppointmentTrends);
-router.get('/dayWiseDetails', appointmentController.getAppointmentDetailsByDay);
+router.get('/dayWiseDetails', appointmentController.getAppointmentDetailsDaywise);
 router.get('/monthlyDoctorAppointments/:doctorId', appointmentController.getMonthlyAppointmentsByDoctor);
 router.get('/UpcomingDoctorAppointments/:doctorId', appointmentController.getDoctorUpcomingAppointments);
-router.get('/appointmentsAndPrescriptionsByDate/:date', appointmentController.getAppointmentsAndPrescriptionsByDate);
+router.get('/appointmentsByDate/:date', appointmentController.getAppointmentsByDate);
 
 
 

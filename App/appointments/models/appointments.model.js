@@ -42,7 +42,7 @@ exports.existingAppointment = (doctor_id,time)=>{
 
 }
 
-exports.getAppointmentDetailsByDay = async () => {
+exports.getAppointmentDetailsDaywise = async () => {
     return Appointment.aggregate([
         {
             $project: {
@@ -82,46 +82,25 @@ exports.getAppointmentDetailsByDay = async () => {
                 $switch: {
                   branches: [
                     {
-                      case: {
-                        $eq: ["$_id", 1]
-                      },
-                      then: "Sunday"
+                      case: {$eq: ["$_id", 1]},then: "Sunday"
                     },
                     {
-                      case: {
-                        $eq: ["$_id", 2]
-                      },
-                      then: "Monday"
+                      case: {$eq: ["$_id", 2]},then: "Monday"
                     },
                     {
-                      case: {
-                        $eq: ["$_id", 3]
-                      },
-                      then: "Tuesday"
+                      case: {$eq: ["$_id", 3]},then: "Tuesday"
                     },
                     {
-                      case: {
-                        $eq: ["$_id", 4]
-                      },
-                      then: "Wednesday"
+                      case: {$eq: ["$_id", 4]},then: "Wednesday"
                     },
                     {
-                      case: {
-                        $eq: ["$_id", 5]
-                      },
-                      then: "Thursday"
+                      case: {$eq: ["$_id", 5]},then: "Thursday"
                     },
                     {
-                      case: {
-                        $eq: ["$_id", 6]
-                      },
-                      then: "Friday"
+                      case: {$eq: ["$_id", 6]},then: "Friday"
                     },
                     {
-                      case: {
-                        $eq: ["$_id", 7]
-                      },
-                      then: "Saturday"
+                      case: {$eq: ["$_id", 7]},then: "Saturday"
                     }
                   ],
                   default: "Unknown"
@@ -294,20 +273,12 @@ exports.getMonthlyAppointmentTrends = async () => {
   };
 
 
-  exports.getAppointmentsAndPrescriptionsByDate = (date) => {
+  exports.getAppointmentsByDate = (date) => {
     return Appointment.aggregate([
         {
             $match: {
                 timestamp: { $gte: new Date(date), $lt: new Date(new Date(date).setDate(new Date(date).getDate() + 1)) }
             }
-        },
-        {
-          $lookup: {
-            from: "prescriptions",
-            localField: "patientId",
-            foreignField: "patientId",
-            as: "prescriptions"
-          }
         },
         {
           $lookup: {
@@ -343,12 +314,8 @@ exports.getMonthlyAppointmentTrends = async () => {
             timestamp: "$timestamp",
             status: "$status",
             patientName: 1,
-            doctorName: 1,
-            "prescriptions.medicines": 1
+            doctorName: 1
           }
-        },
-        {
-          $unwind: "$prescriptions"
         }
     ]);
 };
