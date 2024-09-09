@@ -60,6 +60,10 @@ exports.getPatientDetails = async(req,res)=>{
     try {
         const patientDetails = await patientModel.patientDetails(req.params.patientId);
         res.status(200).send(patientDetails);
+        console.log(patientDetails);
+        console.log(req.params.patientId);
+
+
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: 'An error occurred while fetching the patient details.' });

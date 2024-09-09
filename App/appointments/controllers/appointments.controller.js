@@ -44,6 +44,16 @@ exports.addAppointment = async(req, res) => {
     }
 };
 
+exports.getAppointments = async(req, res) => {
+    try {
+        const appointments = await appointmentModel.getAppointments();
+        res.json(appointments);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'An error occurred while retrieving appointments.' });
+    }
+};
+
 exports.completeAppointment = async(req, res) => {
     try {
         const { appointmentId } = req.body;
@@ -206,5 +216,35 @@ exports.getAppointmentsByDate = async(req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: 'An error occurred while getting details.' });
+    }
+};
+
+exports.getScheduledAppointments = async(req, res) => {
+    try {
+        const appointments = await appointmentModel.getScheduledAppointments();
+        res.json(appointments);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'An error occurred while retrieving appointments.' });
+    }
+};
+
+exports.getCompletedAppointments = async(req, res) => {
+    try {
+        const appointments = await appointmentModel.getCompletedAppointments();
+        res.json(appointments);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'An error occurred while retrieving appointments.' });
+    }
+};
+
+exports.getCanceledAppointments = async(req, res) => {
+    try {
+        const appointments = await appointmentModel.getCanceledAppointments();
+        res.json(appointments);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'An error occurred while retrieving appointments.' });
     }
 };

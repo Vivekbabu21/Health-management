@@ -9,7 +9,7 @@ router.post('/',doctorController.addDoctor);
 router.get('/:id', doctorController.getDoctorById);
 router.put('/:id', doctorController.editDoctorById);
 router.delete('/:id', doctorController.deleteDoctor);
-router.get('/doctor/:doctorId',doctorController.getDoctorDetails);
+router.get('/doctorDetails/:doctorId',doctorController.getDoctorDetails);
 
 
 

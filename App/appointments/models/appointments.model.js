@@ -320,3 +320,159 @@ exports.getMonthlyAppointmentTrends = async () => {
     ]);
 };
 
+exports.getScheduledAppointments = async () => {
+  return Appointment.aggregate([
+    {
+      $match: {
+        status: "scheduled"
+      }
+    },
+    {
+      $lookup: {
+        from: "patients",
+        localField: "patientId",
+        foreignField: "_id",
+        as: "patientDetails"
+      }
+    },
+    {
+      $unwind: "$patientDetails"
+    },
+    {
+      $lookup: {
+        from: "doctors",
+        localField: "doctorId",
+        foreignField: "_id",
+        as: "doctorDetails"
+      }
+    },
+    {
+      $unwind: "$doctorDetails"
+    },
+    {
+      $addFields: {
+        doctorName: "$doctorDetails.username",
+        patientName: "$patientDetails.username"
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        timestamp: "$timestamp",
+        status: "$status",
+        patientName: 1,
+        doctorName: 1
+      }
+    },
+    {
+      $sort: {
+        timestamp: -1
+      }
+    }
+  ]);
+};
+
+exports.getCompletedAppointments = async () => {
+  return Appointment.aggregate([
+    {
+      $match: {
+        status: "completed"
+      }
+    },
+    {
+      $lookup: {
+        from: "patients",
+        localField: "patientId",
+        foreignField: "_id",
+        as: "patientDetails"
+      }
+    },
+    {
+      $unwind: "$patientDetails"
+    },
+    {
+      $lookup: {
+        from: "doctors",
+        localField: "doctorId",
+        foreignField: "_id",
+        as: "doctorDetails"
+      }
+    },
+    {
+      $unwind: "$doctorDetails"
+    },
+    {
+      $addFields: {
+        doctorName: "$doctorDetails.username",
+        patientName: "$patientDetails.username"
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        timestamp: "$timestamp",
+        status: "$status",
+        patientName: 1,
+        doctorName: 1
+      }
+    },
+    {
+      $sort: {
+        timestamp: -1
+      }
+    }
+  ]);
+};
+
+exports.getCanceledAppointments = async () => {
+  return Appointment.aggregate([
+    {
+      $match: {
+        status: "canceled"
+      }
+    },
+    {
+      $lookup: {
+        from: "patients",
+        localField: "patientId",
+        foreignField: "_id",
+        as: "patientDetails"
+      }
+    },
+    {
+      $unwind: "$patientDetails"
+    },
+    {
+      $lookup: {
+        from: "doctors",
+        localField: "doctorId",
+        foreignField: "_id",
+        as: "doctorDetails"
+      }
+    },
+    {
+      $unwind: "$doctorDetails"
+    },
+    {
+      $addFields: {
+        doctorName: "$doctorDetails.username",
+        patientName: "$patientDetails.username"
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        timestamp: "$timestamp",
+        status: "$status",
+        patientName: 1,
+        doctorName: 1
+      }
+    },
+    {
+      $sort: {
+        timestamp: -1
+      }
+    }
+  ]);
+};
+

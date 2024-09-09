@@ -75,7 +75,10 @@ exports.patientDetails = (patientId) => {
                 }
               },
               {
-                $unwind: "$prescriptions.medicines"
+                $unwind: {
+                  path: "$prescriptions.medicines",
+                  preserveNullAndEmptyArrays: true 
+                }              
               },
               {
                 $lookup: {
